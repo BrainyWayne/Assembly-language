@@ -1,0 +1,198 @@
+;#GROUP MEMBERS
+;Anukem Sussan Tochukwu-1661617
+;Eze Lauren Chinaza-1649917
+;Derrick Sconi-1660417
+;Ahenfo Joseph Fiifi-1642817
+;Nicholas Nii Aryee Quaye-1657517
+;Dzitrie Kelvin Yesutor-1649417
+;Sowah Emmanuella Tawiah-1658417
+;Eshun Michael-1649717
+;Laryea Frandy Odai-1652717
+;Eshun Francis-1649617
+;Joshua Ofori-1660217
+;Griffin Benjamin Offei-Ntow-1654817
+;Farngalo Bobby Francis-4714015
+;Roy Adibi-1641717
+
+section .data
+
+	mone db "Projector",10; declaration and initialization of constants
+	mone_L equ $-mone
+
+	mtwo times 9 db "-",10
+	mtwo_L equ $-mtwo
+
+	mthree db "Enter any number from the menu", 0xA,0xD
+	mthree_L equ $-mthree
+	
+	on dd '1'
+	off dd '1'
+	hibernate dd '3'
+	hdmimode dd '4'
+	exitmode dd '5'
+
+	mfour db "1: ON",0xA,0xD
+	mfour_L equ $-mfour
+
+	mfive db "2: OFF",0xA,0xD
+	mfive_L equ $-mfive
+
+	msix db "3:HIBERNATE MODE",0xA,0xD
+	msix_L equ $-msix
+
+	mseven db "4:HDMI MODE",0xA,0xD
+	mseven_L equ $-mseven
+
+	meight db "5: EXIT",0xA,0xD
+	meight_L equ $-meight
+
+	onmsg db "THE PROJECTOR IS ON",0xA,0xD
+	onmsg_L equ $-onmsg
+
+	offmsg db "THE PROJECTOR IS OFF",0xA,0xD
+	offmsg_L equ $-offmsg
+
+	hibmsg db "SYSTEM IS HIBERNATING",0xA,0xD
+	hibmsg_L equ $-hibmsg
+
+ 	hdmsg db "PROJECTOR IS RUNNING",0xA,0xD
+	hdmsg_L equ $-hdmsg
+
+	exitmsg db "PROJECTOR IS SHUTTING DOWN",0xA,0xD
+	exitmsg_L equ $-exitmsg
+
+
+section .bss; For declaring variables
+
+	none resd 10
+	ntwo resd 10
+	nthree resd 10
+	nfour resd 10
+	nfive resd 10
+
+section .text; For actual code
+
+	global _start
+_start: ;entry point
+
+;#MESSAGE_ONE
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,mone ; moves message one to counter register
+	mov edx,mone_L ;moves message one length to the data register
+	int 0x80; Kernel call
+
+;#MESSAGE_TWO
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,mtwo ; moves message two to counter register
+	mov edx,mtwo_L ;moves message two length to the data register
+	int 0x80; Kernel call
+
+;#MESSAGE_THREE
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,mthree ; moves message three to counter register
+	mov edx,mthree_L ;moves message three length to the data register
+	int 0x80; Kernel call
+
+;#MESSAGE_FOUR
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,mfour ; moves message four to counter register
+	mov edx,mfour_L ;moves message four length to the data register
+	int 0x80; Kernel call
+
+;#MESSAGE_FIVE
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,mfive ; moves message five to counter register
+	mov edx,mfive_L ;moves message five length to the data register
+	int 0x80; Kernel call
+
+;#MESSAGE_SIX
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,msix ; moves message six to counter register
+	mov edx,msix_L ;moves message six length to the data register
+	int 0x80; Kernel call
+
+;#MESSAGE_SEVEN
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,mseven ; moves message seven to counter register
+	mov edx,mseven_L ;moves message seven length to the data register
+	int 0x80; Kernel call
+
+;#MESSAGE_EIGHT
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,meight ; moves message eight to counter register
+	mov edx,meight_L ;moves message eight length to the data register
+	int 0x80; Kernel call
+
+;#NUMBER_ONE
+	mov eax,3 ;#System_Read
+	mov ebx,2 ;#struct pt_regs
+	mov ecx,none ; moves message none to counter register
+	mov edx,5 ;#int
+	int 0x80; Kernel call
+
+	mov dl,[none]
+	cmp dl,[on]
+	je on
+
+	mov dl,[none]
+	cmp dl,[off]
+	je off
+
+	mov dl,[none]
+	cmp dl,[hibernate]
+	je hibernate
+
+	mov dl,[none]
+	cmp dl,[hdmimode]
+	je hdmimode
+
+	mov dl,[none]
+	cmp dl,[exitmode]
+	je exitmode
+
+;turnon:
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,onmsg ; moves message onmsg to counter register
+	mov edx,onmsg_L ;moves message onmsg length to the data register
+	int 0x80; Kernel call
+	
+;turnoff:
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,offmsg ; moves message offmsg to counter register
+	mov edx,offmsg_L ;moves message offmsg length to the data register
+	int 0x80; Kernel call
+
+;hibernatemode:
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,hibmsg ; moves message hibmsg to counter register
+	mov edx,hibmsg_L ;moves message hibmsg length to the data register
+	int 0x80; Kernel call
+
+;exitmode:
+	mov eax,4 ;#System_Write
+	mov ebx,1 ;#int
+	mov ecx,exitmsg ; moves message exitmsg to counter register
+	mov edx,exitmsg_L ;moves message exitmsg length to the data register
+	int 0x80; Kernel call
+
+
+
+
+
+
+
+
+
+
+	
